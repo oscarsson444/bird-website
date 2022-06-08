@@ -12,23 +12,58 @@ Instant form field borda användas för att markera om man gissar fel
 
 */
 
-function generateBird(setBirdObj, usedBirds) {
-    let keys = Object.keys(birds);
-    let usedKeys = Object.keys(birds).filter(key => usedBirds.includes(birds[key]));
-    keys = keys.filter((item) => !usedKeys.includes(item));
-    const bird = birds[keys[ keys.length * Math.random() << 0]];
-    setBirdObj(bird);
+function shuffle(array) {
+    let currentIndex = array.length,  randomIndex;
+  
+    // While there remain elements to shuffle.
+    while (currentIndex != 0) {
+  
+      // Pick a remaining element.
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+  
+      // And swap it with the current element.
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex], array[currentIndex]];
+    }
+  
+    return array;
+  }
+
+const generateOptions = (birdObj, usedBirds)  => {
+    const optionsList = [];
+    optionsList.push(birdObj);
+
+    for(let i=0; i<2; i++){
+        const availableBirds = birds.filter((bird) => !usedBirds.includes(bird) && !optionsList.includes(bird));
+        optionsList.push(availableBirds[availableBirds.length * Math.random() << 0]);
+    }
+    return shuffle(optionsList);
+}
+
+/**
+ * Randomly selects the next bird of the quiz
+ * @param {Function} setBirdObj Sets the current bird of the quiz
+ * @param {Array} usedBirds List of all the already guessed birds
+ */
+function generateBird(setBirdObj, setOptionsList, usedBirds) {
+    const availableBirds = birds.filter(bird => !usedBirds.includes(bird));
+    const birdObj = birds[availableBirds.length * Math.random() << 0];
+    setOptionsList(generateOptions(birdObj, usedBirds));
+    setBirdObj(birdObj);
 }
 
 function BirdQuiz () {
     const [searchString, setSearchString] = useState("");
     const [birdObj, setBirdObj] = useState(Object);
-    const [birdImage, setBirdImage] = useState(bImage);
+    const [birdImage, setBirdImage] = useState(bImage); // Torde vara onödig
     const [isCorrect, setIsCorrect] = useState(false);
     const [isWinScreen, setIsWinScreen] = useState(false);
     const [usedBirds, setUsedBirds] = useState([]);
     const [easyMode, setEasyMode] = useState(false);
     const [totalPoints, setTotalPoints] = useState(0);
+    const [optionsList, setOptionsList] = useState([]);
+    const [radioValue, setRadioValue] = useState({});
 
     const handleChange = (e) => {
         setSearchString(e.target.value);
@@ -40,7 +75,7 @@ function BirdQuiz () {
 
     const handleClick = () => {
         const birdName = Object.values(birdObj)[0].toLowerCase();
-        if (birdName === searchString.toLowerCase()) {
+        if (birdName === searchString.toLowerCase() || radioValue === birdObj) {
             setIsCorrect(true);
             setTotalPoints(totalPoints+1);
             toggleWinScreen();
@@ -58,37 +93,22 @@ function BirdQuiz () {
         toggleWinScreen();
         setIsCorrect(false);
         setSearchString("");
-        generateBird(setBirdObj, usedBirds);
-    }
-
-    const generateOptions = ()  => {
-        const optionsList = [];
-        optionsList.push(birdObj);
-
-        for(let i=0; i<2; i++){
-            let keys = Object.keys(birds);
-            let usedKeys = Object.keys(birds).filter(key => usedBirds.includes(birds[key]));
-            keys = keys.filter((item) => !usedKeys.includes(item) && !optionsList.includes(item));
-            console.log("Keys: ",keys);
-            optionsList.push(birds[keys[ keys.length * Math.random() << 0]]);
-        }
-        return optionsList;
+        generateBird(setBirdObj, setOptionsList, usedBirds);
     }
 
     useEffect(() => {
-        generateBird(setBirdObj, usedBirds);
-        console.log(birdImage);
+        generateBird(setBirdObj, setOptionsList, usedBirds);
       }, []);
 
     return (
         <div className='birdquiz-wrapper'>
             <button style={{position:'fixed', top:'10px', right:'10px'}} onClick={toggleEasyMode}>Ändra svårighet</button>
-            <h1>Du har {totalPoints} av {Object.keys(birds).length} poäng!</h1>
+            <h1>Du har {totalPoints} av {birds.length} poäng!</h1>
             <ReactPlayer style={{margin:"5%"}} height={"40px"} width={"90%"} url = {Object.values(birdObj)[1]} controls={true}/>
             {easyMode && 
             <div>
                 <img src={Object.values(birdObj)[2]}></img>
-                <RadioButtonsGroup birdList={generateOptions()} />
+                <RadioButtonsGroup birdList={optionsList} setRadioValue={setRadioValue} />
             </div>
                 }
             {!easyMode && 
