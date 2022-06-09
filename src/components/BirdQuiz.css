@@ -1,14 +1,13 @@
 .birdquiz-wrapper {
-    height: 30%;
-    width: 30%;
+    width: 20%;
     margin: auto;
-    background-color: burlywood;
+    background-color: rgb(189, 187, 185);
     border-radius: 25px;
     padding: 20px;
 } 
 
 .birdquiz-wrapper img {
-    height: auto;
+    height: 50%;
     width: 90%;
     border-radius: 15px;
 }

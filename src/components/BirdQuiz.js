@@ -2,10 +2,11 @@ import { useEffect, useState } from 'react';
 import birds from '../birdInfo/species.js';
 import ReactPlayer from 'react-player';
 import './BirdQuiz.css';
-import bImage from "../unknown_bird.png";
 import WinScreen from './WinScreen.js';
 import Button from '@mui/material/Button';
 import RadioButtonsGroup from './RadioButtonQuiz.js';
+import bImage from "../unknown_bird.png";
+import DifficultySelector from './DifficultySelector.js';
 
 /*
 Instant form field borda användas för att markera om man gissar fel
@@ -48,7 +49,8 @@ const generateOptions = (birdObj, usedBirds)  => {
  */
 function generateBird(setBirdObj, setOptionsList, usedBirds) {
     const availableBirds = birds.filter(bird => !usedBirds.includes(bird));
-    const birdObj = birds[availableBirds.length * Math.random() << 0];
+    console.log(availableBirds);
+    const birdObj = availableBirds[availableBirds.length * Math.random() << 0];
     setOptionsList(generateOptions(birdObj, usedBirds));
     setBirdObj(birdObj);
 }
@@ -60,10 +62,15 @@ function BirdQuiz () {
     const [isCorrect, setIsCorrect] = useState(false);
     const [isWinScreen, setIsWinScreen] = useState(false);
     const [usedBirds, setUsedBirds] = useState([]);
-    const [easyMode, setEasyMode] = useState(false);
+    const [easyMode, setEasyMode] = useState(false); // ska tas bort
+    const [difficulty, setDifficulty] = useState(0); // 0 is hardest and 2 is easiest
     const [totalPoints, setTotalPoints] = useState(0);
     const [optionsList, setOptionsList] = useState([]);
     const [radioValue, setRadioValue] = useState({});
+
+    useEffect(() => {
+        generateBird(setBirdObj, setOptionsList, usedBirds);
+      }, []);
 
     const handleChange = (e) => {
         setSearchString(e.target.value);
@@ -82,10 +89,6 @@ function BirdQuiz () {
         }
     };
 
-    const toggleEasyMode = () => {
-        setEasyMode(!easyMode);
-    };
-
     const newBird = () =>  {
         let tempUsedBirds = usedBirds;
         tempUsedBirds.push(birdObj);
@@ -93,31 +96,45 @@ function BirdQuiz () {
         toggleWinScreen();
         setIsCorrect(false);
         setSearchString("");
-        generateBird(setBirdObj, setOptionsList, usedBirds);
+        generateBird(setBirdObj, setOptionsList, tempUsedBirds);
     }
 
-    useEffect(() => {
-        generateBird(setBirdObj, setOptionsList, usedBirds);
-      }, []);
+    const difficultySwitch = (difficulty) => {
+        switch(difficulty) {
+            case 0: // Hardest difficulty no image, only sound
+                return (
+                <div>
+                    <img src={birdImage}></img>
+                    <input style={{width:"90%", height:"40px", margin:"3%"}} placeholder='Skriv art...' type="text" value={searchString} onChange={handleChange}/>
+                </div>
+                );
+            case 1: // Easier, now you have picture of bird aswell as sound
+                return (
+                <div>
+                    <img src={Object.values(birdObj)[2]}></img>
+                    <input style={{width:"90%", height:"40px", margin:"3%"}} placeholder='Skriv art...' type="text" value={searchString} onChange={handleChange}/>
+                </div>
+                );
+            case 2: // Easiest, both sound, image and options
+                return (
+                <div>
+                    <img src={Object.values(birdObj)[2]}></img>
+                    <RadioButtonsGroup birdList={optionsList} setRadioValue={setRadioValue} />
+                </div>
+                );
+        }
+    }
 
     return (
         <div className='birdquiz-wrapper'>
-            <button style={{position:'fixed', top:'10px', right:'10px'}} onClick={toggleEasyMode}>Ändra svårighet</button>
+            <DifficultySelector setDifficulty={setDifficulty} />
             <h1>Du har {totalPoints} av {birds.length} poäng!</h1>
             <ReactPlayer style={{margin:"5%"}} height={"40px"} width={"90%"} url = {Object.values(birdObj)[1]} controls={true}/>
-            {easyMode && 
-            <div>
-                <img src={Object.values(birdObj)[2]}></img>
-                <RadioButtonsGroup birdList={optionsList} setRadioValue={setRadioValue} />
-            </div>
-                }
-            {!easyMode && 
-            <div>
-                <img src={birdImage}></img>
-                <input style={{width:"90%", height:"40px", margin:"3%"}} placeholder='Skriv art...' type="text" value={searchString} onChange={handleChange}/>
-            </div>}
-            
+
+            {difficultySwitch(difficulty)}
+
             <button style={{width:"90%", height:"40px", margin:"5%"}} onClick={handleClick}>Gissa</button>
+
             {isWinScreen && <WinScreen
                 content={
                     <div>

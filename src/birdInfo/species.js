@@ -54,6 +54,21 @@ const birds = [
     name: "lappuggla",
     audio: "https://xeno-canto.org/659840/download",
     image: "https://upload.wikimedia.org/wikipedia/commons/c/c5/Strix_nebulosa_in_flight.jpg",
+  },
+  {
+    name: "pilfink",
+    audio: "https://xeno-canto.org/716066/download",
+    image: "https://upload.wikimedia.org/wikipedia/commons/f/ff/Thirsty_sparrow.jpg",
+  },
+  {
+    name: "steglits",
+    audio: "https://xeno-canto.org/723280/download",
+    image: "https://www.vivara.se/pub/media/fagel/Steglits.jpg",
+  },
+  {
+    name: "skata",
+    audio: "https://xeno-canto.org/707821/download",
+    image: "https://www.jagarexamenonline.se/images/quiz_images/skata_stor@2x.jpg",
   }
   
 ];
