@@ -49,7 +49,6 @@ const generateOptions = (birdObj, usedBirds)  => {
  */
 function generateBird(setBirdObj, setOptionsList, usedBirds) {
     const availableBirds = birds.filter(bird => !usedBirds.includes(bird));
-    console.log(availableBirds);
     const birdObj = availableBirds[availableBirds.length * Math.random() << 0];
     setOptionsList(generateOptions(birdObj, usedBirds));
     setBirdObj(birdObj);
@@ -59,10 +58,9 @@ function BirdQuiz () {
     const [searchString, setSearchString] = useState("");
     const [birdObj, setBirdObj] = useState(Object);
     const [birdImage, setBirdImage] = useState(bImage); // Torde vara onödig
-    const [isCorrect, setIsCorrect] = useState(false);
     const [isWinScreen, setIsWinScreen] = useState(false);
+    const [isEndScreen, setIsEndScreen] = useState(false);
     const [usedBirds, setUsedBirds] = useState([]);
-    const [easyMode, setEasyMode] = useState(false); // ska tas bort
     const [difficulty, setDifficulty] = useState(0); // 0 is hardest and 2 is easiest
     const [totalPoints, setTotalPoints] = useState(0);
     const [optionsList, setOptionsList] = useState([]);
@@ -80,12 +78,21 @@ function BirdQuiz () {
         setIsWinScreen(!isWinScreen);
     }
 
+    const toggleEndScreen = () => {
+        setIsEndScreen(!isEndScreen);
+    }
+
     const handleClick = () => {
         const birdName = Object.values(birdObj)[0].toLowerCase();
+        const localPoints = totalPoints+1;
         if (birdName === searchString.toLowerCase() || radioValue === birdObj) {
-            setIsCorrect(true);
             setTotalPoints(totalPoints+1);
-            toggleWinScreen();
+            if (localPoints == birds.length - 3) {
+                toggleEndScreen();
+            }
+            else {
+                toggleWinScreen();
+            }
         }
     };
 
@@ -94,9 +101,16 @@ function BirdQuiz () {
         tempUsedBirds.push(birdObj);
         setUsedBirds(tempUsedBirds);
         toggleWinScreen();
-        setIsCorrect(false);
         setSearchString("");
         generateBird(setBirdObj, setOptionsList, tempUsedBirds);
+    }
+
+    const playAgain = () => {
+        setUsedBirds([]);
+        toggleEndScreen();
+        setSearchString("");
+        setTotalPoints(0);
+        generateBird(setBirdObj, setOptionsList, []);
     }
 
     const difficultySwitch = (difficulty) => {
@@ -127,14 +141,6 @@ function BirdQuiz () {
 
     return (
         <div className='birdquiz-wrapper'>
-            <DifficultySelector setDifficulty={setDifficulty} />
-            <h1>Du har {totalPoints} av {birds.length} poäng!</h1>
-            <ReactPlayer style={{margin:"5%"}} height={"40px"} width={"90%"} url = {Object.values(birdObj)[1]} controls={true}/>
-
-            {difficultySwitch(difficulty)}
-
-            <button style={{width:"90%", height:"40px", margin:"5%"}} onClick={handleClick}>Gissa</button>
-
             {isWinScreen && <WinScreen
                 content={
                     <div>
@@ -144,6 +150,25 @@ function BirdQuiz () {
                     </div>}
                 handleClose={toggleWinScreen}
             />}
+
+            {isEndScreen && <WinScreen
+                content={
+                    <div>
+                        <img style={{width: "40%"}} src={Object.values(birdObj)[2]}></img>
+                        <h1>Korrekt!</h1>
+                        <h1>Du fick {totalPoints} av {birds.length-3} poäng!</h1>
+                        <button onClick={playAgain}>Spela igen?</button>
+                    </div>}
+                handleClose={toggleEndScreen}
+            />}
+
+            <DifficultySelector setDifficulty={setDifficulty} />
+            <h1>Du har {totalPoints} av {birds.length-3} poäng!</h1>
+            <ReactPlayer style={{margin:"5%"}} height={"40px"} width={"90%"} url = {Object.values(birdObj)[1]} controls={true}/>
+
+            {difficultySwitch(difficulty)}
+
+            <button style={{width:"90%", height:"40px", margin:"5%"}} onClick={handleClick}>Gissa</button>
         </div>
     )
 }

@@ -10,7 +10,7 @@ function capitalizeFirstLetter(birdName) {
 }
 
 export default function RadioButtonsGroup({birdList, setRadioValue}) {
-  const [value, setValue] = useState(birdList[0].name);
+  const [value, setValue] = useState("");
 
   const handleChange = (event) => {
     setValue(event.target.value);
