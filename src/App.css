@@ -1,6 +1,8 @@
 .App {
   text-align: center;
-  background-color: "white";
+  background: url("./v2.jpg");
+  background-size: auto;
+  background-repeat: no-repeat;
 }
 
 

@@ -57,12 +57,13 @@ function generateBird(setBirdObj, setOptionsList, usedBirds) {
 function BirdQuiz () {
     const [searchString, setSearchString] = useState("");
     const [birdObj, setBirdObj] = useState(Object);
-    const [birdImage, setBirdImage] = useState(bImage); // Torde vara onödig
     const [isWinScreen, setIsWinScreen] = useState(false);
     const [isEndScreen, setIsEndScreen] = useState(false);
+    const [isFailScreen, setIsFailScreen] = useState(false);
     const [usedBirds, setUsedBirds] = useState([]);
     const [difficulty, setDifficulty] = useState(0); // 0 is hardest and 2 is easiest
     const [totalPoints, setTotalPoints] = useState(0);
+    const [birdsGuessed, setBirdsGuessed] = useState(0);
     const [optionsList, setOptionsList] = useState([]);
     const [radioValue, setRadioValue] = useState({});
 
@@ -82,9 +83,14 @@ function BirdQuiz () {
         setIsEndScreen(!isEndScreen);
     }
 
+    const toggleFailScreen = () => {
+        setIsFailScreen(!isFailScreen);
+    }
+
     const handleClick = () => {
         const birdName = Object.values(birdObj)[0].toLowerCase();
-        const localPoints = totalPoints+1;
+        setBirdsGuessed(birdsGuessed + 1);
+        const localPoints = birdsGuessed+1;
         if (birdName === searchString.toLowerCase() || radioValue === birdObj) {
             setTotalPoints(totalPoints+1);
             if (localPoints == birds.length - 3) {
@@ -94,13 +100,16 @@ function BirdQuiz () {
                 toggleWinScreen();
             }
         }
+        else{
+            toggleFailScreen();
+        }
     };
 
     const newBird = () =>  {
         let tempUsedBirds = usedBirds;
         tempUsedBirds.push(birdObj);
         setUsedBirds(tempUsedBirds);
-        toggleWinScreen();
+        if ( isWinScreen ) { toggleWinScreen() } else { toggleFailScreen() }
         setSearchString("");
         generateBird(setBirdObj, setOptionsList, tempUsedBirds);
     }
@@ -118,7 +127,7 @@ function BirdQuiz () {
             case 0: // Hardest difficulty no image, only sound
                 return (
                 <div>
-                    <img src={birdImage}></img>
+                    <img src={bImage}></img>
                     <input style={{width:"90%", height:"40px", margin:"3%"}} placeholder='Skriv art...' type="text" value={searchString} onChange={handleChange}/>
                 </div>
                 );
@@ -162,8 +171,18 @@ function BirdQuiz () {
                 handleClose={toggleEndScreen}
             />}
 
+            {isFailScreen && <WinScreen
+                content={
+                    <div>
+                        <img style={{width: "40%"}} src={Object.values(birdObj)[2]}></img>
+                        <h1>Fel, det var en {Object.values(birdObj)[0]}!</h1>
+                        <button onClick={newBird}>Gissa ny fågel!</button>
+                    </div>}
+                handleClose={toggleFailScreen}
+            />}
+
             <DifficultySelector setDifficulty={setDifficulty} />
-            <h1>Du har {totalPoints} av {birds.length-3} poäng!</h1>
+            <h1>Fågel {birdsGuessed} av {birds.length-3}</h1>
             <ReactPlayer style={{margin:"5%"}} height={"40px"} width={"90%"} url = {Object.values(birdObj)[1]} controls={true}/>
 
             {difficultySwitch(difficulty)}
