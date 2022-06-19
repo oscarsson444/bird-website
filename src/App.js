@@ -7,9 +7,22 @@ import background from "./bakgrund_skog.jpg";
 
 function App() {
 
+  const url = "https://en.wikipedia.org/w/api.php";
+  const title = "Wikipedia:Ringduva";
+  const params = {
+    'action': "parse",
+    'page': title,
+    'prop': "wikitext",
+    'format': "json"
+  };
+
+  
+
   return (
-    <div className='App'>
-      <BirdQuiz />
+    <div className='bg'>
+      <div className='App'>
+        <BirdQuiz />
+      </div>
     </div>
   );
 }

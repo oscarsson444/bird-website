@@ -69,7 +69,22 @@ const birds = [
     name: "Skata",
     audio: "https://xeno-canto.org/707821/download",
     image: "https://www.jagarexamenonline.se/images/quiz_images/skata_stor@2x.jpg",
-  }
+  },
+  {
+    name: "Ormvråk",
+    audio: "https://xeno-canto.org/712672/download",
+    image: "https://obj.fotosidan.se/obj/docpart/57/574ada98ee309a2cb410b8c56ae0e76d.jpg",
+  },
+  {
+    name: "Duvhök",
+    audio: "https://xeno-canto.org/665202/download",
+    image: "https://alltomjaktochvapen.se/wp-content/uploads/2019/12/Duvhok-iStock-638149344-Paolo-Manzi.jpg",
+  },
+  {
+    name: "Ringduva",
+    audio: "https://xeno-canto.org/729380/download",
+    image: "https://upload.wikimedia.org/wikipedia/commons/6/63/Columba_palumbus_1_%28Marek_Szczepanek%29.jpg",
+  },
   
 ];
 
