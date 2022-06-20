@@ -7,15 +7,23 @@ import background from "./bakgrund_skog.jpg";
 
 function App() {
 
-  const url = "https://en.wikipedia.org/w/api.php";
-  const title = "Wikipedia:Ringduva";
-  const params = {
-    'action': "parse",
-    'page': title,
-    'prop': "wikitext",
-    'format': "json"
-  };
+  const url = "https://en.wikipedia.org/w/api.php?" +
+    new URLSearchParams({
+        origin: "*",
+        action: "query",
+        prop: "extracts",
+        exsentences: 10,
+        exlimit: 1,
+        titles: "Pet door",
+        explaintext: 1,
+        formatversion: 2,
+        format: "json"
+    });
 
+    axios.get(url).then((response) => {
+      console.log(response);
+    });
+    
   
 
   return (
