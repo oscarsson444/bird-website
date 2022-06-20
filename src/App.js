@@ -6,23 +6,23 @@ import BirdQuiz from './components/BirdQuiz';
 import background from "./bakgrund_skog.jpg";
 
 function App() {
-
-  const url = "https://en.wikipedia.org/w/api.php?" +
+    const url = "https://sv.wikipedia.org/w/api.php?" +
     new URLSearchParams({
         origin: "*",
         action: "query",
         prop: "extracts",
-        exsentences: 10,
-        exlimit: 1,
-        titles: "Pet door",
+        exintro: 1,
+        titles: "koltrast",
         explaintext: 1,
-        formatversion: 2,
+        exsectionformat: "plain",
         format: "json"
     });
-
+    
     axios.get(url).then((response) => {
-      console.log(response);
+      const id = Object.keys(response.data.query.pages)[0];
+      console.log(response.data.query.pages[id].extract);
     });
+    
     
   
 
