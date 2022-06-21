@@ -149,45 +149,49 @@ function BirdQuiz () {
     }
 
     return (
-        <div className='birdquiz-wrapper'>
-            {isWinScreen && <WinScreen
-                content={
-                    <div>
-                        <img style={{width: "40%"}} src={Object.values(birdObj)[2]}></img>
-                        <h1>Korrekt!</h1>
-                        <button onClick={newBird}>Gissa ny fågel!</button>
-                    </div>}
-                handleClose={toggleWinScreen}
-            />}
+        <div className='bg'>
+            <div className='birdquiz-wrapper'>
+                <div className='birdquiz'>
+                    {isWinScreen && <WinScreen
+                        content={
+                            <div>
+                                <img style={{width: "40%"}} src={Object.values(birdObj)[2]}></img>
+                                <h1>Korrekt!</h1>
+                                <button onClick={newBird}>Gissa ny fågel!</button>
+                            </div>}
+                        handleClose={toggleWinScreen}
+                    />}
 
-            {isEndScreen && <WinScreen
-                content={
-                    <div>
-                        <img style={{width: "40%"}} src={Object.values(birdObj)[2]}></img>
-                        <h1>Korrekt!</h1>
-                        <h1>Du fick {totalPoints} av {birds.length-3} poäng!</h1>
-                        <button onClick={playAgain}>Spela igen?</button>
-                    </div>}
-                handleClose={toggleEndScreen}
-            />}
+                    {isEndScreen && <WinScreen
+                        content={
+                            <div>
+                                <img style={{width: "40%"}} src={Object.values(birdObj)[2]}></img>
+                                <h1>Korrekt!</h1>
+                                <h1>Du fick {totalPoints} av {birds.length-3} poäng!</h1>
+                                <button onClick={playAgain}>Spela igen?</button>
+                            </div>}
+                        handleClose={toggleEndScreen}
+                    />}
 
-            {isFailScreen && <WinScreen
-                content={
-                    <div>
-                        <img style={{width: "40%"}} src={Object.values(birdObj)[2]}></img>
-                        <h1>Fel, det var en {Object.values(birdObj)[0]}!</h1>
-                        <button onClick={newBird}>Gissa ny fågel!</button>
-                    </div>}
-                handleClose={toggleFailScreen}
-            />}
+                    {isFailScreen && <WinScreen
+                        content={
+                            <div>
+                                <img style={{width: "40%"}} src={Object.values(birdObj)[2]}></img>
+                                <h1>Fel, det var en {Object.values(birdObj)[0]}!</h1>
+                                <button onClick={newBird}>Gissa ny fågel!</button>
+                            </div>}
+                        handleClose={toggleFailScreen}
+                    />}
 
-            <DifficultySelector setDifficulty={setDifficulty} />
-            <h1>Fågel {birdsGuessed} av {birds.length-3}</h1>
-            <ReactPlayer style={{margin:"5%"}} height={"40px"} width={"90%"} url = {Object.values(birdObj)[1]} controls={true}/>
+                    <DifficultySelector setDifficulty={setDifficulty} />
+                    <h1>Fågel {birdsGuessed} av {birds.length-3}</h1>
+                    <ReactPlayer style={{margin:"5%"}} height={"40px"} width={"90%"} url = {Object.values(birdObj)[1]} controls={true}/>
 
-            {difficultySwitch(difficulty)}
+                    {difficultySwitch(difficulty)}
 
-            <button style={{width:"90%", height:"40px", margin:"5%"}} onClick={handleClick}>Gissa</button>
+                    <button style={{width:"90%", height:"40px", margin:"5%"}} onClick={handleClick}>Gissa</button>
+                </div>
+            </div>
         </div>
     )
 }

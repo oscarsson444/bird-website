@@ -1,9 +1,7 @@
 import './App.css';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
-import birds from './birdInfo/species.js';
-import BirdQuiz from './components/BirdQuiz';
-import background from "./bakgrund_skog.jpg";
+import StartPage from './components/StartPage';
+import { Link } from 'react-router-dom';
 
 function App() {
     const url = "https://sv.wikipedia.org/w/api.php?" +
@@ -29,7 +27,11 @@ function App() {
   return (
     <div className='bg'>
       <div className='App'>
-        <BirdQuiz />
+        <nav>
+          <Link to="/">Home</Link> |{" "}
+          <Link to="/quiz">Quiz</Link> |{" "}
+          <Link to="/search">Search</Link>
+        </nav>
       </div>
     </div>
   );
