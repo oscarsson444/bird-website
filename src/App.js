@@ -1,7 +1,7 @@
 import './App.css';
 import axios from 'axios';
 import StartPage from './components/StartPage';
-import { Link } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 
 function App() {
     const url = "https://sv.wikipedia.org/w/api.php?" +
@@ -25,14 +25,12 @@ function App() {
   
 
   return (
-    <div className='bg'>
-      <div className='App'>
-        <nav>
-          <Link to="/">Home</Link> |{" "}
-          <Link to="/quiz">Quiz</Link> |{" "}
-          <Link to="/search">Search</Link>
-        </nav>
-      </div>
+    <div>
+      <nav>
+        <Link to="/quiz">Quiz</Link> |{" "}
+        <Link to="/search">Search</Link>
+      </nav>
+      <Outlet />
     </div>
   );
 }
