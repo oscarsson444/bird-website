@@ -25,7 +25,7 @@ function App() {
   
 
   return (
-    <div>
+    <div style={{'textAlign': 'center'}}>
       <nav>
         <Link to="/quiz">Quiz</Link> |{" "}
         <Link to="/search">Search</Link>

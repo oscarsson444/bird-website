@@ -10,6 +10,15 @@
   color: white;
 }
 
+.bg {
+  background-image: url("./v2.jpg");
+  width: 100vw;
+  height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 .App-link {
   color: #61dafb;
 }
