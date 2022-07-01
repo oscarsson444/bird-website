@@ -3,18 +3,37 @@ import birds from "../birdInfo/species";
 import "./SearchSpecies.css";
 import ReactPlayer from "react-player";
 import useCollapse from "react-collapsed";
+import axios from 'axios';
 
-function Collapsible() {
+function Collapsible({name}) {
     const { getCollapseProps, getToggleProps, isExpanded } = useCollapse();
+    const [information, setInformation] = useState("");
+    const url = "https://sv.wikipedia.org/w/api.php?" +
+    new URLSearchParams({
+        origin: "*",
+        action: "query",
+        prop: "extracts",
+        exintro: 1,
+        titles: name,
+        explaintext: 1,
+        exsectionformat: "plain",
+        format: "json"
+    });
+    
+    axios.get(url).then((response) => {
+      const id = Object.keys(response.data.query.pages)[0];
+      setInformation(response.data.query.pages[id].extract);
+      console.log(response.data.query.pages[id].extract);
+    });
+
 return (
     <div className="collapsible">
         <div className="header" {...getToggleProps()}>
-            {isExpanded ? 'Collapse' : 'Expand'}
+            {isExpanded ? 'Visa mindre' : 'Visa mer'}
         </div>
         <div {...getCollapseProps()}>
             <div className="content">
-                Now you can see the hidden content. <br/><br/>
-                Click again to hide...
+                {information}
             </div>
         </div>
     </div>
@@ -39,6 +58,7 @@ const BirdItem = ({ name, audio, image }) => {
           url={audio}
           controls={true}
         />
+        <Collapsible name={name}/>
     </div>
   );
 };

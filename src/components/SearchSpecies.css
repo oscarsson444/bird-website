@@ -1,6 +1,5 @@
 .birdItem{
     background-color: rgb(174, 193, 193);
-    border-radius: 25px;
     width: 100%;
     margin-bottom: 2%;
 }
@@ -13,6 +12,20 @@
 
 .expandable-div {
     width: 100%;
+}
+
+.collapsible .content {
+    padding: 6px;
+    background-color: #eeeeee;
+}
+.collapsible .header {
+    background-color: rgb(150, 162, 162);
+    padding: 6px;
+    cursor: pointer;
+}
+
+.collapsible .header:hover {
+    background-color: rgb(97, 97, 100);
 }
 
 .wrapper {

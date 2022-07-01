@@ -41,7 +41,7 @@ const birds = [
     image: "https://www.fageln.se/upload/art/blames/blames01.jpg",
   },
   {
-    name: "Kokaburra",
+    name: "Dacelo",
     audio: "https://xeno-canto.org/717137/download",
     image: "https://upload.wikimedia.org/wikipedia/commons/1/1f/Laughing_Kookaburra_Gravestone.jpg",
   },

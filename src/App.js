@@ -1,6 +1,5 @@
 import './App.css';
 import axios from 'axios';
-import StartPage from './components/StartPage';
 import { Link, Outlet } from 'react-router-dom';
 
 function App() {
