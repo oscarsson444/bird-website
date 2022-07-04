@@ -6,6 +6,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import StartPage from './components/StartPage';
 import BirdQuiz from './components/BirdQuiz';
+import Home from './components/Home';
 import SearchSpecies from './components/SearchSpecies';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
