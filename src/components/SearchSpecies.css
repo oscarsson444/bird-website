@@ -29,11 +29,13 @@
 }
 
 .wrapper {
+    text-align: center;
     margin: auto;
     width: 40%;
 }
 
 .wrapper input {
+    margin-top: 2%;
     margin-bottom: 2%;
     width: 99%;
     height: 40px;

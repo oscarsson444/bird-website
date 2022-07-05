@@ -10,12 +10,6 @@
   color: white;
 }
 
-.home-screen-button {
-  width: 100px;
-  height: 100px;
-  background-color: aquamarine;
-}
-
 .bg {
   background-image: url("./bakgrund_skog.jpg");
   width: 100vw;

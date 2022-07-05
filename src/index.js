@@ -1,23 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import StartPage from './components/StartPage';
-import BirdQuiz from './components/BirdQuiz';
-import Home from './components/Home';
-import SearchSpecies from './components/SearchSpecies';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<App />}>
-        <Route path="quiz" element={<BirdQuiz />}/>
-        <Route path="search" element={<SearchSpecies />}/>
-      </Route>
-    </Routes>
+    <App />
   </BrowserRouter>
 );
 

@@ -1,21 +1,15 @@
 import BirdQuiz from "./BirdQuiz"
+import "./StartPage.css"
+import { Link } from "react-router-dom";
 
 export default function StartPage () {
 
-    const handleQuizClick = () => {
-        return (
-            <BirdQuiz />
-        )
-    }
-
-    const handleSearchClick = () => {
-        return;
-    }
-
-    return (
-        <div>
-            <button onClick={handleQuizClick}>FågelQuiz</button>
-            <button onClick={handleSearchClick}>Sök arter</button>
+   return (
+        <div className="bg">
+            <nav className="nav">
+                <Link className="side-button" to="/quiz">Quiz</Link>
+                <Link className="side-button" to="/search">Sök fågelart</Link>
+            </nav>
         </div>
-    )
+   )
 }

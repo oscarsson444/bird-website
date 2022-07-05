@@ -1,14 +1,17 @@
 import './App.css';
-import { Link, Outlet } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
+import StartPage from './components/StartPage';
+import BirdQuiz from './components/BirdQuiz';
+import SearchSpecies from "./components/SearchSpecies";
 
 function App() {
   return (
-    <div style={{'textAlign': 'center'}}>
-      <nav>
-        <Link className='home-screen-button' to="/quiz">Quiz</Link> |{" "}
-        <Link to="/search">Search</Link>
-      </nav>
-      <Outlet />
+    <div>
+      <Routes>
+        <Route path="/" element={<StartPage />} />
+        <Route path="/quiz" element={<BirdQuiz/>} />
+        <Route path="/search" element={<SearchSpecies />} />
+      </Routes>
     </div>
   );
 }
