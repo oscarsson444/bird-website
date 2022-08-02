@@ -6,7 +6,7 @@ export default function StartPage () {
 
    return (
         <div className="bg">
-            <nav className="nav">
+            <nav className="start-page">
                 <Link className="side-button" to="/quiz">Quiz</Link>
                 <Link className="side-button" to="/search">Sök fågelart</Link>
             </nav>

@@ -119,6 +119,7 @@ function BirdQuiz () {
         toggleEndScreen();
         setSearchString("");
         setTotalPoints(0);
+        setBirdsGuessed(0);
         generateBird(setBirdObj, setOptionsList, []);
     }
 
@@ -184,7 +185,7 @@ function BirdQuiz () {
                     />}
 
                     <DifficultySelector setDifficulty={setDifficulty} />
-                    <h1>Fågel {birdsGuessed} av {birds.length-3}</h1>
+                    <h1>Fågel {birdsGuessed + 1} av {birds.length-3}</h1>
                     <ReactPlayer style={{margin:"5%"}} height={"40px"} width={"90%"} url = {Object.values(birdObj)[1]} controls={true}/>
 
                     {difficultySwitch(difficulty)}

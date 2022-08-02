@@ -23,8 +23,9 @@ function Collapsible({name}) {
     axios.get(url).then((response) => {
       const id = Object.keys(response.data.query.pages)[0];
       setInformation(response.data.query.pages[id].extract);
-      console.log(response.data.query.pages[id].extract);
+      console.log(response.data.query.pages);
     });
+
 
 return (
     <div className="collapsible">

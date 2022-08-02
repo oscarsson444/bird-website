@@ -1,14 +1,14 @@
-.nav {
+.start-page {
     color: aliceblue;
     display: flex;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 92vh;
 }
 
 .bg {
     background-image: url("../v2.jpg");
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 92vh;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -18,23 +18,15 @@
     background-color: transparent;
     width: 50vw;
     text-align: center;
-    padding-top: 50vh;
+    padding-top: 46vh;
 }
 
 .side-button:hover {
     background-color: rgba(255, 255, 255, 0.5);
 }
 
-.nav a {
+.start-page a {
     color: inherit;
     text-decoration: none;
     font-size: 30px;
-}
-
-.nav ul {
-    padding: 0;
-    margin: 0;
-    list-style: none;
-    display: flex;
-    gap: 1rem;
 }

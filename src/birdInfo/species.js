@@ -85,6 +85,26 @@ const birds = [
     audio: "https://xeno-canto.org/729380/download",
     image: "https://upload.wikimedia.org/wikipedia/commons/6/63/Columba_palumbus_1_%28Marek_Szczepanek%29.jpg",
   },
+  {
+    name: "Gök",
+    audio: "https://xeno-canto.org/731989/download",
+    image: "https://cdn2.cdnme.se/4530496/8-3/gok2_573c6288e087c3057c22a229.jpg",
+  },
+  {
+    name: "Kanadagås",
+    audio: "https://xeno-canto.org/731990/download",
+    image: "https://upload.wikimedia.org/wikipedia/commons/7/74/Canadagoose.jpg",
+  },
+  {
+    name: "Grågås",
+    audio: "https://xeno-canto.org/718812/download",
+    image: "https://upload.wikimedia.org/wikipedia/commons/d/d3/Greylag_goose_Kjaergaard_2.JPG",
+  },
+  {
+    name: "Gräsand",
+    audio: "https://xeno-canto.org/734522/download",
+    image: "https://cdn.birdlife.se/wp-content/uploads/sites/20/2020/04/gräsand4-scaled.jpg",
+  },
   
 ];
 
